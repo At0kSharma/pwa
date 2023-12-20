@@ -7,12 +7,13 @@ const appSettings = {
 const app = initializeApp(appSettings)
 const database = getDatabase(app);
 const List = ref(database, 'list')
-const checkedList = ref(database, 'Checked-list')
+const checkedList = ref(database, 'checked-list')
 
-const inputDate = document.getElementById("input-field");
-const addBtn = document.getElementById("add-btn");
-const tagsList = document.getElementById("tag-lists");
+const inputDate = document.getElementById("input-field")
+const addBtn = document.getElementById("add-btn")
+const tagsList = document.getElementById("tag-lists")
 const checkList = document.getElementById("check-lists")
+
 
 addBtn.addEventListener("click", () => {
     let inputValue = inputDate.value;
@@ -25,29 +26,24 @@ addBtn.addEventListener("click", () => {
 onValue(List, function (snapshot) {
     const dbName = "list"
     tagsList.innerHTML = ''
-    if (snapshot.exists()) {
-        let tagArray = Object.entries(snapshot.val())
-        for (let i = 0; i < tagArray.length; i++) {
-            let currentlist = tagArray[i]
-            if (currentlist == "")
-                continue
-            appendList(currentlist, dbName)
-        }
-    }
-
+    getList(dbName, snapshot)
 })
 onValue(checkedList, function (snapshot) {
-    const dbName = "Checked-list"
+    const dbName = "checked-list"
     checkList.innerHTML = ''
+    getList(dbName, snapshot)
+})
+
+function getList(dbName, snapshot) {
+    console.log(snapshot.val())
     if (snapshot.exists()) {
         let checkArray = Object.entries(snapshot.val())
         for (let i = 0; i < checkArray.length; i++) {
-            let currentCheckList = checkArray[i]
-            appendList(currentCheckList, dbName)
+            let currentList = checkArray[i]
+            appendList(currentList, dbName)
         }
     }
-})
-
+}
 
 function appendList(currentList, dbName) {
 
@@ -60,30 +56,35 @@ function appendList(currentList, dbName) {
     listContainer.className = ("list-container")
 
     const checkBtn = document.createElement("button")
-
-
     checkBtn.className = ("check-btn")
-    const listText = document.createTextNode(listValue)
-    listContainer.appendChild(checkBtn)
-    listContainer.appendChild(listText)
+
+    const listText = document.createElement("span")
+    listText.textContent = listValue
 
     const deleteBtn = document.createElement("button")
     deleteBtn.innerText = "✖"
     deleteBtn.className = ("delete-btn")
 
+    singleListContainer.appendChild(listText)
     singleListContainer.appendChild(listContainer)
-    singleListContainer.appendChild(deleteBtn)
     if (dbName == "list") {
+        listContainer.appendChild(checkBtn)
         singleListContainer.className = "single-list-container"
         checkBtn.innerText = "✔"
         tagsList.append(singleListContainer)
     } else {
+        listContainer.appendChild(deleteBtn)
         singleListContainer.className = "checked-list-container"
         checkBtn.innerText = "—"
         checkList.append(singleListContainer)
     }
     checkBtn.addEventListener("click", () => checkTogglebtn(listId, listValue, dbName))
-    deleteBtn.addEventListener("click", () => deleteList(dbName, listId))
+    deleteBtn.addEventListener("click", function () {
+        var isDelete = confirm("Are you sure!")
+        if (isDelete) {
+            deleteList(dbName, listId)
+        }
+    })
 }
 
 function clearInputDataField() {

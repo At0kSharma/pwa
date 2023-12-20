@@ -82,7 +82,7 @@ function appendList(currentList, dbName) {
         checkBtn.innerText = "—"
         checkList.append(singleListContainer)
     }
-    checkBtn.addEventListener("click", () => checkTogglebtn(listId, listValue))
+    checkBtn.addEventListener("click", () => checkTogglebtn(listId, listValue, dbName))
     deleteBtn.addEventListener("click", () => deleteList(dbName, listId))
 }
 
@@ -90,10 +90,15 @@ function clearInputDataField() {
     inputDate.value = ""
 }
 
-function checkTogglebtn(listId, listValue) {
-
-    push(checkedList, listValue)
-    deleteList(listId)
+function checkTogglebtn(listId, listValue, dbName) {
+    if (dbName == "list") {
+        push(checkedList, listValue)
+        deleteList(dbName, listId)
+    }
+    if (dbName == "Checked-list") {
+        push(List, listValue)
+        deleteList(dbName, listId)
+    }
 }
 
 function deleteList(dbName, listId) {

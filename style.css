@@ -20,6 +20,11 @@
   gap: 10px;
   padding: 10px;
 }
+.box {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 .logo-image {
   width: 80px;
   margin: 20px auto;
@@ -28,11 +33,12 @@
   border: 1px solid rgb(248, 210, 210);
 }
 .input-field {
+  width: 72%;
   background: #f8d7d7;
   border: none;
   padding: 12px;
   border-radius: 4px;
-  text-align: center;
+  text-align: start;
   font-size: 16px;
 }
 .input-field:focus {
@@ -46,7 +52,68 @@
   color: #ffffff;
   border-radius: 4px;
   font-size: 16px;
+  user-select: none;
 }
 .add-btn:hover {
   cursor: pointer;
+}
+.single-list-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  margin-top: 5px;
+  background-color: rgb(221, 234, 250);
+  border-radius: 5px;
+  color: black;
+  font-size: 18px;
+  user-select: none;
+}
+.checked-list-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  margin-top: 5px;
+  background-color: rgb(166, 166, 166);
+  border-radius: 5px;
+  color: black;
+  font-size: 18px;
+  user-select: none;
+}
+.list-container {
+  display: flex;
+  gap: 10px;
+}
+
+.delete-btn {
+  background: rgb(223, 208, 208);
+  padding: 2px 5px;
+  border: none;
+  color: grey;
+  transition: all 0.3s ease-in-out;
+  border-radius: 3px;
+}
+.delete-btn:hover {
+  background-color: red;
+  color: #fff;
+}
+.check-btn {
+  background: rgb(255, 255, 255);
+  padding: 2px 5px;
+  border: none;
+  color: rgb(175, 152, 251);
+  transition: all 0.3s ease-in-out;
+  border-radius: 3px;
+}
+.check-btn:hover {
+  background-color: rgb(40, 117, 241);
+  color: #fff;
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: #f8d7d7;
+  border-radius: 20px;
 }
